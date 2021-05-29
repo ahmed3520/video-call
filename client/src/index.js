@@ -1,14 +1,15 @@
-import React from 'react'
-import ReactDom from 'react-dom'
-import App from './App'
-import {ContextProvider} from 'context'
-import './styles.css'
 
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-ReactDom.render(
-    <ContextProvider>
-        <App/>
-    </ContextProvider>,
-    document.getElementById('root');
-)
+import App from './App';
+import { ContextProvider } from './Context';
 
+import './styles.css';
+
+ReactDOM.render(
+  <ContextProvider>
+    <App />
+  </ContextProvider>,
+  document.getElementById('root'),
+);
