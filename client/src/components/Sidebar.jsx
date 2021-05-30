@@ -62,10 +62,8 @@ const Sidebar = ({ children }) => {
               {callAccepted && !callEnded ? (
                 <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={leaveCall} className={classes.margin}>
                   Hang Up
-                </Button>,
-                       <Button variant="contained" color="secondary" startIcon={<MicIcon fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
-                       Mute
-                     </Button>
+                </Button>
+                      
               ) : (
                 <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={() => callUser(idToCall)} className={classes.margin}>
                   Call

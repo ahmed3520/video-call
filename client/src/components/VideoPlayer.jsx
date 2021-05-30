@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
-
+import { Grid, Typography, Paper, makeStyles , Button} from '@material-ui/core';
+import MicIcon from '@material-ui/icons/Mic';
 import { SocketContext } from '../Context';
-
+import VideocamIcon from '@material-ui/icons/Videocam';
+import { Videocam } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   video: {
     width: '550px',
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VideoPlayer = () => {
-  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
+  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call, muteVideo, muteAudio } = useContext(SocketContext);
   const classes = useStyles();
 
   return (
@@ -42,6 +43,15 @@ const VideoPlayer = () => {
           <Grid item xs={12} md={6}>
             <Typography variant="h5" gutterBottom>{call.name || 'Name'}</Typography>
             <video playsInline ref={userVideo} autoPlay className={classes.video} />
+            <div style={{width:'fit-content'}}>
+            <Button variant="contained" color="secondary" style={{width:'50%', marginRight:'2px'}} startIcon={<Videocam fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
+                       Mute
+                     </Button>
+
+                     <Button variant="contained" color="secondary" style={{width:'50%'}} startIcon={<MicIcon fontSize="large" />} fullWidth onClick={muteAudio} className={classes.margin}>
+                       Mute
+                     </Button>
+                     </div>
           </Grid>
         </Paper>
       )}
