@@ -1,10 +1,10 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
-
+import {authMethods} from './firebase/authmethods'
 const SocketContext = createContext();
-const socket = io('http://localhost:5000');
- //const socket = io('https://video-friends.herokuapp.com/');
+//const socket = io('http://localhost:5000');
+ const socket = io('https://video-friends.herokuapp.com/');
 
 
 const ContextProvider = ({ children }) => {
@@ -14,7 +14,10 @@ const ContextProvider = ({ children }) => {
   const [name, setName] = useState('');
   const [call, setCall] = useState({});
   const [me, setMe] = useState('');
-
+  const initState = {email:'', password:''}
+  const [inputs, setInputs] = useState(initState);
+  const [error, setErrors] = useState([])
+  const [token, setToken] = useState(null);
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
@@ -34,7 +37,18 @@ const ContextProvider = ({ children }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
   }, []);
-
+  const handleSignup = () =>{
+    authMethods.signup(inputs.email, inputs.password, setErrors, setToken);
+     //log
+    console.log(error, token)
+  }
+  const handleSignin = ()=>{
+    authMethods.signin(inputs.email, inputs.password, setErrors, setToken);
+    console.log(error, token);
+  }
+  const handleSignout = () =>{
+    authMethods.signout(setErrors, setToken);
+  }
   const answerCall = () => {
     setCallAccepted(true);
 
@@ -103,6 +117,13 @@ const ContextProvider = ({ children }) => {
       answerCall,
       muteVideo,
       muteAudio,
+      handleSignin,
+      handleSignout,
+      handleSignup,
+      error,
+      token,
+      inputs,
+      setInputs,
     }}
     >
       {children}
