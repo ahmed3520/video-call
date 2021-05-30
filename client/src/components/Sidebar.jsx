@@ -3,7 +3,7 @@ import { Button, TextField, Grid, Typography, Container, Paper } from '@material
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Assignment, Phone, PhoneDisabled } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-
+import MicIcon from '@material-ui/icons/Mic';
 import { SocketContext } from '../Context';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Sidebar = ({ children }) => {
-  const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } = useContext(SocketContext);
+  const { me, callAccepted, name, setName, callEnded, leaveCall, callUser, muteVideo } = useContext(SocketContext);
   const [idToCall, setIdToCall] = useState('');
   const classes = useStyles();
 
@@ -62,7 +62,10 @@ const Sidebar = ({ children }) => {
               {callAccepted && !callEnded ? (
                 <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={leaveCall} className={classes.margin}>
                   Hang Up
-                </Button>
+                </Button>,
+                       <Button variant="contained" color="secondary" startIcon={<MicIcon fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
+                       Mute
+                     </Button>
               ) : (
                 <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={() => callUser(idToCall)} className={classes.margin}>
                   Call

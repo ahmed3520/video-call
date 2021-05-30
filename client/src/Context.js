@@ -3,8 +3,8 @@ import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 
 const SocketContext = createContext();
-
- const socket = io('http://localhost:5000');
+const socket = io('http://localhost:5000');
+ //const socket = io('https://video-friends.herokuapp.com/');
 
 
 const ContextProvider = ({ children }) => {
@@ -80,6 +80,9 @@ const ContextProvider = ({ children }) => {
 
     window.location.reload();
   };
+  const muteVideo=()=>{
+    stream.getVideoTracks()[0].enabled = !(stream.getVideoTracks()[0].enabled);
+  }
 
   return (
     <SocketContext.Provider value={{
@@ -95,6 +98,7 @@ const ContextProvider = ({ children }) => {
       callUser,
       leaveCall,
       answerCall,
+      muteVideo,
     }}
     >
       {children}
