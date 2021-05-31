@@ -4,8 +4,10 @@ import MicIcon from '@material-ui/icons/Mic';
 import { SocketContext } from '../Context';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import { Videocam } from '@material-ui/icons';
+//import './video.css'
 const useStyles = makeStyles((theme) => ({
   video: {
+    
     width: '550px',
     [theme.breakpoints.down('xs')]: {
       width: '300px',
@@ -34,7 +36,7 @@ const VideoPlayer = () => {
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
             <Typography variant="h5" gutterBottom>{name || 'Name'}</Typography>
-            <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
+            <video  playsInline muted ref={myVideo} autoPlay className={classes.video} />
           </Grid>
         </Paper>
       )}

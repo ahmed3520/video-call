@@ -1,10 +1,14 @@
-import React from 'react';
+import React,{useContext, useEffect, useState} from 'react';
 import { Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import firebase from 'firebase'
+import {Route, Switch, Redirect} from 'react-router-dom'
 
-import VideoPlayer from './components/VideoPlayer';
-import Sidebar from './components/Sidebar';
-import Notifications from './components/Notifications';
+import Wrapper from './components/Wrapper'
+import { SocketContext } from './Context';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
+
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -33,19 +37,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.wrapper}>
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography variant="h2" align="center">Video Chat</Typography>
-      </AppBar>
-      <VideoPlayer />
-      <Sidebar>
-        <Notifications />
-      </Sidebar>
-    </div>
-  );
+  const user = firebase.auth().currentUser;
+const {token} = useContext(SocketContext);
+console.log(user);
+return(
+  <>
+  <Switch>
+    <Route exact path='/' render={rProps=> user === null? <Signin/>:<Wrapper/>}/>
+    <Route exact path='/signin' component={Signin}/>
+    <Route exact path ='/signup' component={Signup}/>
+  </Switch>
+  </>
+)
 };
 
 export default App;

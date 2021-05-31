@@ -4,30 +4,24 @@ import firebase from 'firebase';
 export const authMethods = {
     signup:(email, password, setErrors, setToken)=>{
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(async res=>{
-            const token = await Object.entries(res.user)[5][1].b
- 
-            await localStorage.setItem('token', token)
-            setToken(token)
-          
-              console.log(res)
+        .then((userCredential) => {
+          // Signed in 
+          var user = userCredential.user;
+          // ...
         })
+
         .catch(error=>{
             setErrors(prev=>([...prev, error.message]))
         })
     },
     signin: (email, password, setErrors, setToken) => {
  
-        firebase.auth().signInWithEmailAndPassword(email, password) 
-     
-          .then( async res => {
-            const token = await Object.entries(res.user)[5][1].b
-             
-            await localStorage.setItem('token', token)
-              
-              
-              setToken(window.localStorage.token)
-            })
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+          var user = userCredential.user;
+          // ...
+        })
             .catch(err => {
             setErrors(prev => ([...prev, err.message]))
             })
@@ -38,7 +32,7 @@ export const authMethods = {
         firebase.auth().signOut().then( res => {
   
           localStorage.removeItem('token')
-            
+          console.log('handle submit')
           setToken(null)
         })
         .catch(err => {

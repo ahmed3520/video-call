@@ -2,6 +2,9 @@ import React, { createContext, useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 import {authMethods} from './firebase/authmethods'
+import firebase from 'firebase'
+
+
 const SocketContext = createContext();
 //const socket = io('http://localhost:5000');
  const socket = io('https://video-friends.herokuapp.com/');
@@ -21,9 +24,13 @@ const ContextProvider = ({ children }) => {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
+ 
 
   useEffect(() => {
-      
+    const user = firebase.auth().currentUser;
+    console.log(user);
+      if(user){
+        console.log('useer')
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
@@ -36,6 +43,7 @@ const ContextProvider = ({ children }) => {
     socket.on('callUser', ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
+  }
   }, []);
   const handleSignup = () =>{
     authMethods.signup(inputs.email, inputs.password, setErrors, setToken);

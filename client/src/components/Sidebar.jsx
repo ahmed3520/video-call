@@ -3,7 +3,7 @@ import { Button, TextField, Grid, Typography, Container, Paper } from '@material
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Assignment, Phone, PhoneDisabled } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import MicIcon from '@material-ui/icons/Mic';
+
 import { SocketContext } from '../Context';
 
 const useStyles = makeStyles((theme) => ({
