@@ -46,7 +46,7 @@ return(
     <Route exact path='/' render={rProps=> user === null? <Signin/>:<Wrapper/>}/>
     <Route exact path='/signin' component={Signin}/>
     <Route exact path ='/signup' component={Signup}/>
-  </Switch>
+  </Routes>
   </>
 )
 };
