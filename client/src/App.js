@@ -2,7 +2,7 @@ import React,{useContext, useEffect, useState} from 'react';
 import { Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Routes, Redirect} from 'react-router-dom'
 
 import Wrapper from './components/Wrapper'
 import { SocketContext } from './Context';
@@ -42,7 +42,7 @@ const {token} = useContext(SocketContext);
 console.log(user);
 return(
   <>
-  <Switch>
+  <Routes>
     <Route exact path='/' render={rProps=> user === null? <Signin/>:<Wrapper/>}/>
     <Route exact path='/signin' component={Signin}/>
     <Route exact path ='/signup' component={Signup}/>
